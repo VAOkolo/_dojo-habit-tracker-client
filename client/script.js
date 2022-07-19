@@ -243,6 +243,16 @@ async function tickOff(e){
   console.log(e)
   const targetDate = e.target.parentNode[0].value
   const status = e.target.parentNode[1].value
+  const habitList = document.getElementById('habit-selector')
+  const habit = document.getElementById('habit-selector').value
+
+  let id = ""
+  //duplicated on line 116 (loadStatus()) - refactor
+  for(i=0; i < habitList.childNodes.length; i++){
+    if(habitList.childNodes[i].textContent == habit){
+      id = habitList.childNodes[i].id
+    }
+  }
 
   // console.log(targetDate, status)
 
@@ -262,12 +272,26 @@ async function tickOff(e){
     date;
   }
 
+  console.log(id)
+  const habitData = {
+    date: date,
+    complete: status
+  }
+
+  const options = {
+    method: 'PUT',
+    body: JSON.stringify(habitData),
+    headers: { "Content-Type": "application/json" }
+};
+
+  fetch(`${url}/${id}`, options)
+            .catch(console.warn)
+
   //assign styling
   const square = document.getElementById(date)
-
   const calendar = document.querySelectorAll('.day')
+
   console.log(calendar)
-  // console.log(data_string);
 
   if(status == "complete"){
     square.style.backgroundColor = "green"
