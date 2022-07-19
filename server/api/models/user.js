@@ -13,7 +13,7 @@ class User {
             try {
                 const db = await init();
                 const dbData = await db.collection('users').find({}).toArray()
-                const users = dbData.map(d => new Post(d));
+                const users = dbData.map(d => new User(d));
                 if( !users.length ) { throw new Error('No users here!')}
                 resolve(users);
             } catch (err){
@@ -32,22 +32,8 @@ class User {
                     console.log(await db.collection('users').find().toArray())
                     console.log("DB")
                     // let userData = await db.collection('users').insertOne({username,  email,password});
-                    let userData = await db.collection('users').insertOne({username,  email,password}, function(error, response) {
-                        if(error) {
-                            console.log('Error occurred while inserting');
-                           // return 
-                        } else {
-                           console.log('inserted record', response.ops);
-                          // return 
-                        }
-                    });
-                    console.log("SIUU")
-                    console.log(userData)
-                    console.log(userData.ops)
-                    let newUser = new User(userData.ops[0]);
-                    console.log(newUser)
-                    console.log("FINSIH")
-                    resolve (newUser);
+                    let userData = await db.collection('users').insertOne({username,  email,password});
+                    resolve (userData);
                 } catch (err) {
                     reject('Error creating user');
                 }

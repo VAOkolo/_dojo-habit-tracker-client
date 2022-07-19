@@ -10,6 +10,7 @@ const deleteEventModal = document.getElementById('deleteEventModal');
 const backDrop = document.getElementById('modalBackDrop');
 const eventTitleInput = document.getElementById('eventTitleInput');
 const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+const dateInput = document.getElementById('date')
 
 function openModal(date) {
   clicked = date;
@@ -131,6 +132,23 @@ function initButtons() {
   document.getElementById('deleteButton').addEventListener('click', deleteEvent);
   document.getElementById('closeButton').addEventListener('click', closeModal);
 }
+
+dateInput.value = new Date().toLocaleDateString()
+
+console.log(dateInput.value)
+
+function padTo2Digits(num)  {
+  return num.toString().padStart(2, '0')
+}
+
+function formatData(date = new Date()){
+  return [
+    date.getFullYear(),
+    padTo2Digits(date.getMonth() + 1),
+    padTo2Digits(date.getDate()),
+  ].join('-')
+}
+
 
 initButtons();
 load();

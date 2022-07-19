@@ -16,12 +16,12 @@ function clearInputError(inputElement) {
 }
 
 document.addEventListener("DOMContentLoaded", () =>{
-    const loginform = document.querySelector('#login');
+    const loginForm = document.querySelector('#login');
     const createAccountForm = document.querySelector('#signup');
 
     document.querySelector('#linkCreateAccount').addEventListener('click', (e) =>{
         e.preventDefault();
-        loginform.classList.add('form--hidden');
+        loginForm.classList.add('form--hidden');
         createAccountForm.classList.remove('form--hidden');
     })
 
@@ -29,13 +29,35 @@ document.addEventListener("DOMContentLoaded", () =>{
         e.preventDefault();
         loginform.classList.remove('form--hidden');
         createAccountForm.classList.add('form--hidden');
-    })
+    });
 
     loginForm.addEventListener('submit', (e) => {
         e.preventDefault();
+        const input_email = e.target[0].value
+        console.log("SUBMIT");
+        // if (e.target[0].value === )
+        getData(input_email);
 
-        setFormMessage(loginForm, 'error', 'Invalid username/password combination')
+        setFormMessage(loginForm, 'error', 'Invalid username/password combination');
     });
+
+    const getData = async (input_email) => {
+        const res = await fetch( "http://localhost:3001/users");
+        const searchData = await res.json();
+        const emailData = searchData.map(search => search.email)
+        if ()
+
+        console.log("123")
+        c
+        console.log("SIUU")
+        console.log(findData)
+        return items
+    };
+
+    createAccountForm.addEventListener('submit', (e) =>{
+        e.preventDefault();
+
+    })
 
     document.querySelectorAll('.form__input').forEach(inputElement =>{
         inputElement.addEventListener("blur", (e) =>{
