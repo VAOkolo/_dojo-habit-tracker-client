@@ -1,4 +1,5 @@
-
+let email = "vincent@gmail.com"
+let url = 'http://localhost:3001/habits'
 
 let nav = 0; //to keep track of the month we are on
 let clicked = null; //whichever day we have clicked on 
@@ -260,23 +261,52 @@ async function tickOff(e){
 const submitBtn = document.getElementById('submit-button')
 const habitForm = document.getElementById('habit-form')
 
+//create a new habit, post to backend, assign new habit id to html tag
 habitForm.addEventListener('submit', async (e) => {
 
   e.preventDefault()
   console.log(e)
 
-  const habit = e.target.childNodes[3].value
-  console.log(habit)
+  const habitData = {
+    content: e.target.childNodes[3].value,
+    email: email
+  }
+  // console.log(habit)
 
   //first check whether habit is in habit list - if so send error note ELSE send new habit to the backend
   //once new habit sent to backend, perform get request and associate habit id to habit drop down value id
 
-  //get drop down
+  const options = {
+    method: 'POST',
+    body: JSON.stringify(habitData),
+    // body: postData,
+    headers: { "Content-Type": "application/json" }
+};
+
+  const response = await fetch(url, options)
+
+  let newData = await getUserHabits(habitData.content)
+  console.log(newData)
+
+  //write id to habit on frontend
+  const newHabit = newData.filter( h => h.content == habitData.content)
+  console.log(newHabit[0]._id)
+
   const habitSelector = document.getElementById('habit-selector')
-  console.log(habitSelector)
+  // console.log(habitSelector)
   const option = document.createElement('option')
-  option.textContent = habit
-  option.value = habit
+  option.textContent = habitData.content
+  option.value = habitData.content
+  option.setAttribute('id', newHabit[0]._id)
 
   habitSelector.appendChild(option)
+
+
 })
+
+async function getUserHabits(content){
+
+  const response = await fetch(`${url}/${email}`)
+  const data = await response.json() 
+  return data
+}
