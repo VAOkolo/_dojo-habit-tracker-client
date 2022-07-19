@@ -265,9 +265,14 @@ const habitForm = document.getElementById('habit-form')
 habitForm.addEventListener('submit', async (e) => {
 
   e.preventDefault()
-  console.log(e)
+  // console.log(e)
 
-  const habitData = {
+  let habit = e.target.childNodes[3].value.trim()
+
+  if(!habit == "" || habit == null){
+    console.log(e)
+  
+    const habitData = {
     content: e.target.childNodes[3].value,
     email: email
   }
@@ -300,8 +305,7 @@ habitForm.addEventListener('submit', async (e) => {
   option.setAttribute('id', newHabit[0]._id)
 
   habitSelector.appendChild(option)
-
-
+}
 })
 
 async function getUserHabits(content){
