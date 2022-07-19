@@ -41,14 +41,13 @@ class User {
         
     }
 
-    static findByName(input_email) {
+    static findByEmail(input_email) {
         return new Promise (async (resolve, reject) => {
             try {
                 const db = await init();
-                const userData = await db.collection("users").find( { email: input_email} )
-                const user = new User(userData.ops[0])        
-                if( !user ) { throw new Error('No users here!')}
-                resolve(user);
+                const userData = await db.collection("users").find( { email: input_email} ).toArray()
+                if( !userData ) { throw new Error('No user here!')}
+                resolve(userData[userData.length-1]);
             } catch (err){
                 reject(`Error retrieving users: ${err.message}`)
             }

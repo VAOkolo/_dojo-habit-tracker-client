@@ -14,4 +14,13 @@ router.get('/', async (req, res) => {
     }
 })
 
+router.get('/:email', async (req, res) => {
+    try {
+        const users = await User.findByEmail(req.params.email)
+        res.json(users)
+    } catch(err) {
+        res.status(500).json({err})
+    }
+})
+
 module.exports = router

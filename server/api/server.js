@@ -15,4 +15,6 @@ server.get('/', (req, res) => res.send('Hello, dojo!'))
 server.use('/users', userRoutes)
 server.use('/auth', authRoutes)
 
+
+
 module.exports = server
