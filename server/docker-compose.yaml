@@ -1,0 +1,29 @@
+version: '3'
+services:
+  server:
+    image: node:12.18.4
+    working_dir: /code
+    ports:
+      - 3001:3001
+    environment:
+      - DB_NAME=habittracker
+      - DB_CONNECTION=mongodb://dojo:dojo123@db:27017
+    depends_on:
+      - db
+    volumes:
+      - type: bind
+        source: ./api
+        target: /code
+    command: bash -c "npm install && npm start"
+
+  db:
+    image: mongo:latest
+    volumes:
+      - "dbdata:/var/lib/mongodb/data"
+      - "./db/seeds.js:/docker-entrypoint-initdb.d/seeds.js:ro"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=dojo
+      - MONGO_INITDB_DATABASE=habittracker
+      - MONGO_INITDB_ROOT_PASSWORD=dojo123
+volumes:
+  dbdata:
