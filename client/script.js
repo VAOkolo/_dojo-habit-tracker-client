@@ -59,6 +59,7 @@ function load() {
     daySquare.classList.add('day');
 
     const dayString = `${month + 1}/${i - paddingDays}/${year}`;
+    daySquare.setAttribute('id', dayString)
 
     if (i > paddingDays) {
       daySquare.innerText = i - paddingDays;
@@ -152,3 +153,48 @@ function formatData(date = new Date()){
 
 initButtons();
 load();
+
+
+//additions
+
+let checkBtn = document.querySelector('#check-button')
+
+checkBtn.addEventListener('click', tickOff)
+
+function tickOff(e){
+  e.preventDefault()
+
+  console.log(e)
+  const targetDate = e.target.parentNode[0].value
+  const status = e.target.parentNode[1].value
+
+  console.log(targetDate, status)
+
+  //transform date
+  let dateArray = targetDate.split('-')
+  let date = `${dateArray[1]}/${dateArray[2]}/${dateArray[0]}`
+
+  if(date[0] == "0" && date[3] == "0"){
+    date = date.replace(date[0],"")
+    date = date.replace(date[2],"")
+    console.log(date)
+  } else if(date[0] == "0"){
+    date = date.replace(date[0],"")
+  } else if(date[3] == "0"){
+    date = date.replace(date[3],"")
+  } else {
+    date;
+  }
+
+  //assign styling
+  const square = document.getElementById(date)
+
+  console.log(status == "complete");
+
+  if(status == "complete"){
+    square.style.backgroundColor = "green"
+  } else if (status == "incomplete"){
+    square.style.backgroundColor = "red"
+  }
+
+}

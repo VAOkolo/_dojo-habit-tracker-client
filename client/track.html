@@ -13,7 +13,16 @@
       <div id="header">
         <div id="monthDisplay"></div>
         <div id="input">
-        <input type="date" id="date" name="trip-start" />
+        <form>
+          <input type="date" id="date" name="trip-start" />
+          <label for="status"></label>
+          <select name="status" id="status-selector">
+            <option value="complete">complete</option>
+            <option value="incomplete">incomplete</option>
+          </select>
+          <button type="button" id="check-button">Check</button>
+        </form>
+
         </div>
         <div>
           <button id="backButton">Back</button>
