@@ -12,6 +12,8 @@ const backDrop = document.getElementById('modalBackDrop');
 const eventTitleInput = document.getElementById('eventTitleInput');
 const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 const dateInput = document.getElementById('date')
+//additions
+const habitList = document.getElementById('habit-selector')
 
 function openModal(date) {
   clicked = date;
@@ -28,22 +30,9 @@ function openModal(date) {
   backDrop.style.display = 'block';
 }
 
-async function load() {
+async function load() {  
 
-  //fetch data
-  // const res = await fetch( "http://localhost:3001/habits/id/62d6ae5eeb6058acdb4933d2");
-  // const searchData = await res.json();
-  // console.log(searchData)
-  // const array = []
-  // const data = await searchData.map(search => search.dates)
-  // for(i =0; i < searchData.dates.length; i++){
-  //   array.push(searchData.dates)
-  // }
-  // const dArray = JSON.stringify(array)
-  // const data_string =  JSON.stringify(data)
-  // console.log(dArray)   
-
-
+  //generate calendar and calendar particulars
   const dt = new Date();
 
   if (nav !== 0) {
@@ -96,18 +85,43 @@ async function load() {
     } else {
       daySquare.classList.add('padding');
     }
-
     calendar.appendChild(daySquare);   
-    
-    
   }
+
+  //write habits to habit drop down - 
+  let habitSelector = document.getElementById('habit-selector')
+
+  let habitData = await getUserHabits(email)
+
+  for(i = 0; i < habitData.length; i++){
+    let options = document.createElement('option')
+    options.textContent = habitData[i].content
+    options.value = habitData[i].content
+    options.setAttribute('id', habitData[i]._id)
+    habitSelector.appendChild(options)
+  }
+
 
   loadStatus()
 }
 
 async function loadStatus(){
 
-    const res = await fetch( "http://localhost:3001/habits/id/62d6ae5eeb6058acdb4933d2");
+    //get id from habit selector list and pass to fetch url
+    const habitList = document.getElementById('habit-selector')
+    const habit = document.getElementById('habit-selector').value
+    //get id using habit name
+    let id = "";
+
+    for(i=0; i < habitList.childNodes.length; i++){
+      if(habitList.childNodes[i].textContent == habit){
+        id = habitList.childNodes[i].id
+      }
+    }
+
+    console.log(id)
+
+    const res = await fetch( `${url}/id/${id}`);
     const searchData = await res.json();
     // console.log(searchData)
     const habitDates = await searchData.dates;
@@ -121,12 +135,19 @@ async function loadStatus(){
 
     console.log(calendar.length)
 
+    //clear styling
+    for(i = 0; i < calendar.length; i++){
+      let calendarId = calendar[i].id
+      let daySquare = document.getElementById(calendarId)
+      console.log(daySquare)
+      daySquare.style.backgroundColor = ""
+    }
+    //loop through arrays, compare values and change styling on value
     for( i = 0; i < calendar.length; i++){
       let calendarId = calendar[i].id
       // console.log(calendarId)
       for(j = 0; j < data_string.length; j++) {
         let data_stringId = data_string[j].date
-        console.log(data_string[j])
         if(calendarId == data_stringId){
           if(data_string[j].complete == "complete"){
             let daySquare = document.getElementById(calendarId)
@@ -265,52 +286,63 @@ const habitForm = document.getElementById('habit-form')
 habitForm.addEventListener('submit', async (e) => {
 
   e.preventDefault()
-  // console.log(e)
+  // assign all habits to array
+  const habitArray = []
+  const habitSelectorOptions = document.getElementById('habit-selector').childNodes
+  habitSelectorOptions.forEach(h => {habitArray.push(h.textContent)})
+  console.log(habitArray)
 
   let habit = e.target.childNodes[3].value.trim()
 
-  if(!habit == "" || habit == null){
-    console.log(e)
-  
-    const habitData = {
-    content: e.target.childNodes[3].value,
-    email: email
-  }
-  // console.log(habit)
+  if(!habit == "" && !habitArray.includes(habit)){
 
-  //first check whether habit is in habit list - if so send error note ELSE send new habit to the backend
-  //once new habit sent to backend, perform get request and associate habit id to habit drop down value id
+      console.log(habitArray.includes(habit))
+      console.log(e)
+    
+      const habitData = {
+      content: e.target.childNodes[3].value,
+      email: email
+    }
+    // console.log(habit)
 
-  const options = {
-    method: 'POST',
-    body: JSON.stringify(habitData),
-    // body: postData,
-    headers: { "Content-Type": "application/json" }
-};
+    //first check whether habit is in habit list - if so send error note ELSE send new habit to the backend
+    //once new habit sent to backend, perform get request and associate habit id to habit drop down value id
 
-  const response = await fetch(url, options)
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(habitData),
+      // body: postData,
+      headers: { "Content-Type": "application/json" }
+  };
 
-  let newData = await getUserHabits(habitData.content)
-  console.log(newData)
+    const response = await fetch(url, options)
 
-  //write id to habit on frontend
-  const newHabit = newData.filter( h => h.content == habitData.content)
-  console.log(newHabit[0]._id)
+    let newData = await getUserHabits(email)
+    console.log(newData)
+    
+    //write id to habit on frontend
+    const newHabit = newData.filter( h => h.content == habitData.content)
+    console.log(newHabit[0]._id)
 
-  const habitSelector = document.getElementById('habit-selector')
-  // console.log(habitSelector)
-  const option = document.createElement('option')
-  option.textContent = habitData.content
-  option.value = habitData.content
-  option.setAttribute('id', newHabit[0]._id)
+    
+    // console.log(habitSelector)
+    const habitSelector = document.getElementById('habit-selector')
+    const option = document.createElement('option')
+    option.textContent = habitData.content
+    option.value = habitData.content
+    option.setAttribute('id', newHabit[0]._id)
 
-  habitSelector.appendChild(option)
+    habitSelector.appendChild(option)
 }
 })
 
-async function getUserHabits(content){
+async function getUserHabits(email){
 
   const response = await fetch(`${url}/${email}`)
   const data = await response.json() 
   return data
 }
+
+//load status on drop down change
+
+habitList.addEventListener('change', loadStatus)
