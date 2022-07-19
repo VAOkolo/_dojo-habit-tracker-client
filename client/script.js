@@ -27,7 +27,22 @@ function openModal(date) {
   backDrop.style.display = 'block';
 }
 
-function load() {
+async function load() {
+
+  //fetch data
+  // const res = await fetch( "http://localhost:3001/habits/id/62d6ae5eeb6058acdb4933d2");
+  // const searchData = await res.json();
+  // console.log(searchData)
+  // const array = []
+  // const data = await searchData.map(search => search.dates)
+  // for(i =0; i < searchData.dates.length; i++){
+  //   array.push(searchData.dates)
+  // }
+  // const dArray = JSON.stringify(array)
+  // const data_string =  JSON.stringify(data)
+  // console.log(dArray)   
+
+
   const dt = new Date();
 
   if (nav !== 0) {
@@ -81,8 +96,47 @@ function load() {
       daySquare.classList.add('padding');
     }
 
-    calendar.appendChild(daySquare);    
+    calendar.appendChild(daySquare);   
+    
+    
   }
+
+  loadStatus()
+}
+
+async function loadStatus(){
+
+    const res = await fetch( "http://localhost:3001/habits/id/62d6ae5eeb6058acdb4933d2");
+    const searchData = await res.json();
+    // console.log(searchData)
+    const habitDates = await searchData.dates;
+    // console.log(habitDates)
+    const data_string = await habitDates.map(search => search)
+    // const data_string =  JSON.stringify(data)
+    console.log(data_string)
+
+    const calendar = document.querySelectorAll('.day')
+    // console.log(calendar)
+
+    console.log(calendar.length)
+
+    for( i = 0; i < calendar.length; i++){
+      let calendarId = calendar[i].id
+      // console.log(calendarId)
+      for(j = 0; j < data_string.length; j++) {
+        let data_stringId = data_string[j].date
+        console.log(data_string[j])
+        if(calendarId == data_stringId){
+          if(data_string[j].complete == "complete"){
+            let daySquare = document.getElementById(calendarId)
+            daySquare.style.backgroundColor = "green"
+          } else if (data_string[j].complete == "incomplete"){
+            let daySquare = document.getElementById(calendarId)
+            daySquare.style.backgroundColor = "red"
+          }
+        }
+      }
+    }
 }
 
 function closeModal() {
@@ -161,14 +215,14 @@ let checkBtn = document.querySelector('#check-button')
 
 checkBtn.addEventListener('click', tickOff)
 
-function tickOff(e){
+async function tickOff(e){
   e.preventDefault()
 
   console.log(e)
   const targetDate = e.target.parentNode[0].value
   const status = e.target.parentNode[1].value
 
-  console.log(targetDate, status)
+  // console.log(targetDate, status)
 
   //transform date
   let dateArray = targetDate.split('-')
@@ -177,7 +231,7 @@ function tickOff(e){
   if(date[0] == "0" && date[3] == "0"){
     date = date.replace(date[0],"")
     date = date.replace(date[2],"")
-    console.log(date)
+    // console.log(date)
   } else if(date[0] == "0"){
     date = date.replace(date[0],"")
   } else if(date[3] == "0"){
@@ -186,12 +240,12 @@ function tickOff(e){
     date;
   }
 
-  //send data to backend
-
   //assign styling
   const square = document.getElementById(date)
 
-  console.log(status == "complete");
+  const calendar = document.querySelectorAll('.day')
+  console.log(calendar)
+  // console.log(data_string);
 
   if(status == "complete"){
     square.style.backgroundColor = "green"
@@ -200,3 +254,29 @@ function tickOff(e){
   }
 
 }
+
+/** populate habit drop down - assign habit to database */
+
+const submitBtn = document.getElementById('submit-button')
+const habitForm = document.getElementById('habit-form')
+
+habitForm.addEventListener('submit', async (e) => {
+
+  e.preventDefault()
+  console.log(e)
+
+  const habit = e.target.childNodes[3].value
+  console.log(habit)
+
+  //first check whether habit is in habit list - if so send error note ELSE send new habit to the backend
+  //once new habit sent to backend, perform get request and associate habit id to habit drop down value id
+
+  //get drop down
+  const habitSelector = document.getElementById('habit-selector')
+  console.log(habitSelector)
+  const option = document.createElement('option')
+  option.textContent = habit
+  option.value = habit
+
+  habitSelector.appendChild(option)
+})

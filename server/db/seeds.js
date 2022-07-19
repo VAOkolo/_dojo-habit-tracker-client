@@ -13,15 +13,15 @@ db.login.drop()
 
 db.habits.insertMany([
     {content: "running", email: "vincent@gmail.com", dates: [{
-        date: "2022-18-22",
-        complete: "no"
+        date: "7/15/2022",
+        complete: "incomplete"
     },{
-        date: "2022-18-22",
-        complete: "no"
+        date: "7/16/2022",
+        complete: "complete"
     },{
-        date: "2022-18-22",
-        complete: "yes"
-    }], updatedAt: "18 July 2022"}])
+        date: "7/17/2022",
+        complete: "complete"
+    }]}])
 
 
 db.users.insertMany([
