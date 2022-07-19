@@ -186,6 +186,8 @@ function tickOff(e){
     date;
   }
 
+  //send data to backend
+
   //assign styling
   const square = document.getElementById(date)
 
