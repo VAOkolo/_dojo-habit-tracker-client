@@ -361,7 +361,7 @@ async function tickOff(e){
   } else if (status == "incomplete"){
     square.style.backgroundColor = "red"
   } else {
-    square.style.backgroundColor = " "
+    square.style.backgroundColor = "white"
   }
 
 }
