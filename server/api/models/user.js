@@ -5,7 +5,7 @@ class User {
     constructor(data){
         this.username = data.username
         this.email = data.email
-        this.passwordDigest = data.password_digest
+        this.password = data.password
     }
     
     static get all(){

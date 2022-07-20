@@ -3,6 +3,8 @@ const router = express.Router()
 
 const Habit = require('../models/habits')
 
+const { verifyToken } = require('../middleware/auth');
+
 //getting all user habit data
 router.get('/', async (req, res) => {
     try {
@@ -59,10 +61,12 @@ router.delete('/:id', async (req, res) => {
 //updating users habits
 router.put('/:id', async (req, res) => {
     try {
-        console.log(req.body.dates)
-        const dates = req.body.dates
+        const dates = req.body.date
+        const status = req.body.complete
+        console.log(dates,status)
         const habit = await Habit.findByHabit(req.params.id)
-        await habit.update(dates)
+        // console.log(habit)
+        await habit.update(dates, status)
         res.status(204).json('Habit updated')
     } catch(err){
         res.status(500).json({err})

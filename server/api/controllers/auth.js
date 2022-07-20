@@ -22,10 +22,13 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     try {
-        console.log("IN")
         const user = await User.findByEmail(req.body.email)
+        console.log(req)
         if(!user){ throw new Error('No user with this email') }
         console.log(req.body.password)
+        if(req.body.password !== user.password){
+            throw new Error('Incorrect password') 
+        }
         const authed = bcrypt.compare(req.body.password, user.password)
         console.log(authed)
         if (!!authed){
@@ -39,13 +42,13 @@ router.post('/login', async (req, res) => {
                     token: "Bearer " + token,
                 });
             }
-            jwt.sign(payload, process.env.SECRET, { expiresIn: "10s"}, sendToken);
+            jwt.sign(payload, process.env.SECRET, { expiresIn: "20s"}, sendToken);
         } else {
             throw new Error('User could not be authenticated')  
         }
     } catch (err) {
-        console.log(err);
-        res.status(401).json({ err });
+        console.log();
+        res.status(401).json({ err: err.message });
     }
 })
 
