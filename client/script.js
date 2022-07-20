@@ -23,6 +23,8 @@ let p = document.querySelector('#note-p')
 let deleteBtn = document.querySelector('#delete-button')
 let editBtn = document.querySelector('#edit-button')
 let saveBtn = document.querySelector('#saveButton')
+let noteEmoji = document.createElement('p')
+noteEmoji.textContent = "📝 "
 
 //event listeners
 //add status to specific day
@@ -32,6 +34,7 @@ habitForm.addEventListener('submit', createHabit)
 //load status on drop down change
 habitList.addEventListener('change', loadStatus)
 editBtn.addEventListener('click', editNote)
+deleteBtn.addEventListener('click', deleteNote)
 
 
 function openModal(date) {
@@ -194,6 +197,8 @@ async function loadStatus(){
         }
       }
     }
+
+    loadNoteStatus(calendar, data_string)
 }
 
 function closeModal() {
@@ -512,4 +517,78 @@ function editNote(e){
 
   eventTitleInput.style.display = "block"
   eventTitleInput.textContent = noteText
+}
+
+//deleting note will be a put request as delete handling in the backend finds a habit by habitId and deletes the row associated to it
+async function deleteNote(e){
+  console.log("test")
+
+  let comment = document.querySelector('#note-p')
+  let result = window.confirm("are you sure you want to delete your note?")
+
+  if(result){
+    //delete
+          
+        let note = {
+            createdAt: "",
+            editedAt: "",
+            text: ""
+        }
+
+        let dateId = e.target.parentNode.parentNode.childNodes[7].id;
+        console.log(dateId)
+        let date = dateId.slice(0,dateId.indexOf('-'))
+        let id = getHabitId()
+        //daySquare has id of date so passing date into argument
+        let status = getDaySquareStatus(date)
+
+        // console.log(status)
+
+        const habitData = {
+          date: date,
+          complete: status,
+          note: note
+        }
+
+        console.log(habitData)
+
+        const options = {
+          method: 'PUT',
+          body: JSON.stringify(habitData),
+          headers: { "Content-Type": "application/json" }
+      };
+
+      if(note.text.trim() == ""){
+          fetch(`${url}/${id}`, options)
+                    .catch(console.warn)
+
+          // console.log(id, note, date)
+
+        
+      }
+    comment.textContent = ""
+    eventTitleInput.style.display = "block"
+    saveBtn.style.display = "block"
+    editBtn.style.display = "none"
+    deleteBtn.style.display = "none"
+  }
+
+}
+
+function loadNoteStatus(calendar, data_string){
+
+  console.log("loadNoteStatus")
+  console.log(calendar, data_string)
+
+  //loop through calendar
+  for( i = 0; i < calendar.length; i++){
+    let calendarId = calendar[i].id
+    for(j = 0; j < data_string.length; j++) {
+      if(calendarId == data_string[j].date){
+        let daySquare = document.getElementById(calendarId)
+        daySquare.appendChild(noteEmoji)
+        break;
+      }
+    }
+  }
 }
