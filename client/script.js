@@ -18,6 +18,9 @@ const submitBtn = document.getElementById('submit-button')
 const habitForm = document.getElementById('habit-form')
 let checkBtn = document.querySelector('#check-button')
 let messageBox = document.querySelector('.note-input')
+let buttonDiv = document.querySelector('#button-div')
+let p = document.querySelector('#note-p')
+let deleteBtn = document.querySelector('#delete-button')
 
 //event listeners
 //add status to specific day
@@ -104,6 +107,7 @@ async function load() {
     calendar.appendChild(daySquare);   
   }
 
+  //conduct checks to not write if already present - loop through array of ids if present do nothing
   //write habits to habit drop down - 
   let habitSelector = document.getElementById('habit-selector')
   let habitData = await getUserHabits(email)
@@ -117,6 +121,21 @@ async function load() {
   }
 
   loadStatus()
+}
+
+function getHabitId(){
+  const habitList = document.getElementById('habit-selector')
+    const habit = document.getElementById('habit-selector').value
+    //get id using habit name
+    let id = "";
+    //get id of first habit in habitList
+    for(i=0; i < habitList.childNodes.length; i++){
+      if(habitList.childNodes[i].textContent == habit){
+        id = habitList.childNodes[i].id
+      }
+    }
+
+    return id;
 }
 
 async function loadStatus(){
@@ -373,4 +392,36 @@ async function getUserHabits(email){
 
 async function renderPost(){
   console.log(messageBox.id)
+  let date = messageBox.id.slice(0,messageBox.id.indexOf('-'))
+  let id = getHabitId()
+
+  const response = await fetch(`${url}/id/${id}`)
+  const data = await response.json()
+
+
+  let text = ""
+  //check for whether date and corresponding post is present
+  const dates = data.dates
+  console.log(dates.some(d => d.date == date))
+  if(dates.some(d => d.date == date)){
+    //render post
+    console.log("running")
+    let filteredDate = dates.filter(d => d.date == date )
+    let text = filteredDate[0].note.text
+    //give deleteBtn a function
+
+    eventTitleInput.style.display = "none"
+    deleteBtn.style.display = "block"
+    p.textContent = text
+    console.log(buttonDiv)
+    messageBox.appendChild(p)
+
+  } else {
+    eventTitleInput.style.display = "block"
+    p.textContent = ""
+    deleteBtn.style.display = "none"
+  }
+
+  console.log(data)
+  
 }
