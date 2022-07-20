@@ -105,7 +105,7 @@ async function load() {
       const eventForDay = events.find(e => e.date === dayString);
 
       if (i - paddingDays === day && nav === 0) {
-        daySquare.id = 'currentDay';
+        daySquare.id = dayString;
       }
 
       if (eventForDay) {
