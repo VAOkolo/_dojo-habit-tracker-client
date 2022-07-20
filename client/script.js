@@ -23,6 +23,7 @@ let p = document.querySelector('#note-p')
 let deleteBtn = document.querySelector('#delete-button')
 let editBtn = document.querySelector('#edit-button')
 let saveBtn = document.querySelector('#saveButton')
+let habitDeleteList = document.querySelector('#habit-delete-list')
 
 
 //event listeners
@@ -34,6 +35,15 @@ habitForm.addEventListener('submit', createHabit)
 habitList.addEventListener('change', loadStatus)
 editBtn.addEventListener('click', editNote)
 deleteBtn.addEventListener('click', deleteNote)
+habitDeleteList.addEventListener('click', (e) => {
+  if(e.target.textContent == "Edit"){
+    let id = e.target.id
+    editHabitList(id)
+  } else if(e.target.textContent == "Delete"){
+    let id = e.target.id
+    deleteHabitList(id)
+  }
+})
 
 
 function openModal(date) {
@@ -418,6 +428,22 @@ async function createHabit(e){
     option.setAttribute('id', newHabit[0]._id)
 
     habitSelector.appendChild(option)
+
+    //write new habit to page before reload
+    let li = document.createElement('li')
+      let editBtn = document.createElement('button')
+      let deleteBtn = document.createElement('button')
+      li.textContent = newHabit[0].content
+      editBtn.textContent = "Edit"
+      deleteBtn.textContent = "Delete"
+      editBtn.setAttribute('id', `${newHabit[0]._id}-eh`)
+      deleteBtn.setAttribute('id', `${newHabit[0]._id}-dh`)
+      li.setAttribute('id', `${newHabit[0]._id}-li`)
+
+      li.appendChild(editBtn)
+      li.appendChild(deleteBtn)
+      habitDeleteList.appendChild(li)
+      console.log(habitDeleteList)
 }
 }
 
@@ -612,8 +638,50 @@ function loadHabits(habitData, habitSelector){
       options.value = habitData[i].content
       options.setAttribute('id', habitData[i]._id)
       habitSelector.appendChild(options)
+
+      let li = document.createElement('li')
+      let editBtn = document.createElement('button')
+      let deleteBtn = document.createElement('button')
+      li.textContent = habitData[i].content
+      editBtn.textContent = "Edit"
+      deleteBtn.textContent = "Delete"
+      editBtn.setAttribute('id', `${habitData[i]._id}-eh`)
+      deleteBtn.setAttribute('id', `${habitData[i]._id}-dh`)
+      li.setAttribute('id', `${habitData[i]._id}-li`)
+
+      li.appendChild(editBtn)
+      li.appendChild(deleteBtn)
+      habitDeleteList.appendChild(li)
     }
   }
 
   loadStatus()
+}
+
+
+async function editHabitList(id){
+  console.log(id)
+}
+
+async function deleteHabitList(id){
+  console.log(id)
+  
+  let result = window.confirm("are you sure you want to delete your note?")
+
+  if(result){
+   let newId = id.slice(0,id.indexOf('-'))
+   let listId = `${newId}-li`
+
+    const options = {
+      method: 'DELETE',
+  };
+  
+  await fetch(`${url}/${newId}`, options)
+  
+  let li = document.getElementById(listId)
+  let dropDownHabit = document.getElementById(newId)
+  li.remove()
+  dropDownHabit.remove()
+  }
+
 }
