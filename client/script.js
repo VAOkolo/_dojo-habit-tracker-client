@@ -14,10 +14,23 @@ const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Satur
 const dateInput = document.getElementById('date')
 //additions
 const habitList = document.getElementById('habit-selector')
+const submitBtn = document.getElementById('submit-button')
+const habitForm = document.getElementById('habit-form')
+let checkBtn = document.querySelector('#check-button')
+let messageBox = document.querySelector('.note-input')
+
+//event listeners
+//add status to specific day
+checkBtn.addEventListener('click', tickOff)
+//create habit
+habitForm.addEventListener('submit', createHabit)
+//load status on drop down change
+habitList.addEventListener('change', loadStatus)
+
 
 function openModal(date) {
   clicked = date;
-
+  console.log(clicked)
   const eventForDay = events.find(e => e.date === clicked);
 
   if (eventForDay) {
@@ -28,10 +41,13 @@ function openModal(date) {
   }
 
   backDrop.style.display = 'block';
+
+  //give modal id that is date of the daySquare clicked
+  messageBox.setAttribute('id',`${clicked}-d`)
+  renderPost()
 }
 
 async function load() {  
-
   //generate calendar and calendar particulars
   const dt = new Date();
 
@@ -90,9 +106,8 @@ async function load() {
 
   //write habits to habit drop down - 
   let habitSelector = document.getElementById('habit-selector')
-
   let habitData = await getUserHabits(email)
-
+  //loop through habits and add to drop down
   for(i = 0; i < habitData.length; i++){
     let options = document.createElement('option')
     options.textContent = habitData[i].content
@@ -100,7 +115,6 @@ async function load() {
     options.setAttribute('id', habitData[i]._id)
     habitSelector.appendChild(options)
   }
-
 
   loadStatus()
 }
@@ -112,30 +126,24 @@ async function loadStatus(){
     const habit = document.getElementById('habit-selector').value
     //get id using habit name
     let id = "";
-
+    //get id of first habit in habitList
     for(i=0; i < habitList.childNodes.length; i++){
       if(habitList.childNodes[i].textContent == habit){
         id = habitList.childNodes[i].id
       }
     }
-
-    console.log(id)
+    // console.log(id)
 
     const res = await fetch( `${url}/id/${id}`);
     const searchData = await res.json();
-    // console.log(searchData)
     const habitDates = await searchData.dates;
-    // console.log(habitDates)
     const data_string = await habitDates.map(search => search)
-    // const data_string =  JSON.stringify(data)
-    console.log(data_string)
+    // console.log(data_string)
 
     const calendar = document.querySelectorAll('.day')
     // console.log(calendar)
 
-    console.log(calendar.length)
-
-    //clear styling
+    //clear styling - on each new habit selection
     for(i = 0; i < calendar.length; i++){
       let calendarId = calendar[i].id
       let daySquare = document.getElementById(calendarId)
@@ -145,7 +153,6 @@ async function loadStatus(){
     //loop through arrays, compare values and change styling on value
     for( i = 0; i < calendar.length; i++){
       let calendarId = calendar[i].id
-      // console.log(calendarId)
       for(j = 0; j < data_string.length; j++) {
         let data_stringId = data_string[j].date
         if(calendarId == data_stringId){
@@ -173,14 +180,17 @@ function closeModal() {
 
 function saveEvent() {
   if (eventTitleInput.value) {
-    eventTitleInput.classList.remove('error');
+    // eventTitleInput.classList.remove('error');
 
-    events.push({
-      date: clicked,
-      title: eventTitleInput.value,
-    });
+    // events.push({
+    //   date: clicked,
+    //   title: eventTitleInput.value,
+    // });
 
-    localStorage.setItem('events', JSON.stringify(events));
+    // localStorage.setItem('events', JSON.stringify(events));
+    const example = document.createElement('p')
+    example.textContent = "lLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+    newEventModal.appendChild(example)
     closeModal();
   } else {
     eventTitleInput.classList.add('error');
@@ -232,11 +242,6 @@ load();
 
 
 //additions
-
-let checkBtn = document.querySelector('#check-button')
-
-checkBtn.addEventListener('click', tickOff)
-
 async function tickOff(e){
   e.preventDefault()
 
@@ -302,12 +307,11 @@ async function tickOff(e){
 }
 
 /** populate habit drop down - assign habit to database */
-
-const submitBtn = document.getElementById('submit-button')
-const habitForm = document.getElementById('habit-form')
-
 //create a new habit, post to backend, assign new habit id to html tag
-habitForm.addEventListener('submit', async (e) => {
+
+
+
+async function createHabit(e){
 
   e.preventDefault()
   // assign all habits to array
@@ -358,7 +362,7 @@ habitForm.addEventListener('submit', async (e) => {
 
     habitSelector.appendChild(option)
 }
-})
+}
 
 async function getUserHabits(email){
 
@@ -367,6 +371,6 @@ async function getUserHabits(email){
   return data
 }
 
-//load status on drop down change
-
-habitList.addEventListener('change', loadStatus)
+async function renderPost(){
+  console.log(messageBox.id)
+}
