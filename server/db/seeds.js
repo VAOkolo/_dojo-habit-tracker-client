@@ -14,10 +14,20 @@ db.login.drop()
 db.habits.insertMany([
     {content: "running", email: "vincent@gmail.com", dates: [{
         date: "7/15/2022",
-        complete: "incomplete"
+        complete: "incomplete",
+        note: {
+            createdAt: "",
+            editedAt: "",
+            text: ""
+        }
     },{
         date: "7/16/2022",
-        complete: "complete"
+        complete: "complete",
+        note: {
+            createdAt: "",
+            editedAt: "",
+            text: ""
+        }
     },{
         date: "7/17/2022",
         complete: "complete",
@@ -37,10 +47,20 @@ db.habits.insertMany([
             }
         },{
             date: "7/16/2022",
-            complete: "complete"
+            complete: "complete",
+            note: {
+                createdAt: "",
+                editedAt: "",
+                text: ""
+            }
         },{
             date: "7/17/2022",
-            complete: "complete"
+            complete: "complete",
+            note: {
+                createdAt: "",
+                editedAt: "",
+                text: ""
+            }
         }]}])
 
 

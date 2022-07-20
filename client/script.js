@@ -359,9 +359,6 @@ async function tickOff(e){
 
 /** populate habit drop down - assign habit to database */
 //create a new habit, post to backend, assign new habit id to html tag
-
-
-
 async function createHabit(e){
 
   e.preventDefault()
@@ -436,19 +433,19 @@ async function renderPost(){
   let dates = data.dates
   dates = dates.filter(d => d.date == date )
   console.log(dates)
-  
-  if(dates.length != 0 && dates[0].date == date){
+
+  if(dates.length != 0 && dates[0].date == date && dates[0].note.text !== ""){
     //render post
     // console.log(dates[0].note)
-    let text = dates[0].note.text
-    console.log(text)
-    //give deleteBtn a function
+      let text = dates[0].note.text
+      console.log(text)
+      //give deleteBtn a function
 
-    eventTitleInput.style.display = "none"
-    deleteBtn.style.display = "block"
-    p.textContent = text
-    // console.log(buttonDiv)
-    messageBox.appendChild(p)
+      eventTitleInput.style.display = "none"
+      deleteBtn.style.display = "block"
+      p.textContent = text
+      // console.log(buttonDiv)
+      messageBox.appendChild(p)
 
   } else {
     eventTitleInput.style.display = "block"
