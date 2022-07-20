@@ -197,6 +197,14 @@ async function loadStatus(){
       }
     }
 
+    // clear note icons
+    for(i = 0; i < calendar.length; i++){
+      let noteEmoji = document.getElementById(`${calendar[i].id}-ne`)
+      if(noteEmoji){
+        noteEmoji.remove()
+      }
+    }
+
     loadNoteStatus(calendar, data_string)
 }
 
@@ -574,6 +582,7 @@ async function deleteNote(e){
 
 }
 
+//adds note to calendar day if there is a note for the date in the backend
 function loadNoteStatus(calendar, data_string){
 
   console.log("loadNoteStatus")
@@ -587,6 +596,7 @@ function loadNoteStatus(calendar, data_string){
         console.log(calendarId, data_string[j].date)
         let daySquare = document.getElementById(calendarId)
         let noteEmoji = document.createElement('p')
+        noteEmoji.setAttribute('id',`${calendarId}-ne`)
         noteEmoji.textContent = "📝 "
 
         console.log(daySquare)
