@@ -33,7 +33,7 @@ habitList.addEventListener('change', loadStatus)
 
 function openModal(date) {
   clicked = date;
-  console.log(clicked)
+  // console.log(clicked)
   const eventForDay = events.find(e => e.date === clicked);
 
   if (eventForDay) {
@@ -166,7 +166,7 @@ async function loadStatus(){
     for(i = 0; i < calendar.length; i++){
       let calendarId = calendar[i].id
       let daySquare = document.getElementById(calendarId)
-      console.log(daySquare)
+      // console.log(daySquare)
       daySquare.style.backgroundColor = ""
     }
     //loop through arrays, compare values and change styling on value
@@ -181,6 +181,9 @@ async function loadStatus(){
           } else if (data_string[j].complete == "incomplete"){
             let daySquare = document.getElementById(calendarId)
             daySquare.style.backgroundColor = "red"
+          } else {
+            let daySquare = document.getElementById(calendarId)
+            daySquare.style.backgroundColor = " "
           }
         }
       }
@@ -197,23 +200,44 @@ function closeModal() {
   load();
 }
 
-function saveEvent() {
-  if (eventTitleInput.value) {
-    // eventTitleInput.classList.remove('error');
-
-    // events.push({
-    //   date: clicked,
-    //   title: eventTitleInput.value,
-    // });
-
-    // localStorage.setItem('events', JSON.stringify(events));
-    const example = document.createElement('p')
-    example.textContent = "lLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-    newEventModal.appendChild(example)
-    closeModal();
-  } else {
-    eventTitleInput.classList.add('error');
+async function saveEvent(e) {
+  
+  //capture necessary data - post back to backend
+  console.log(e)
+  let note = {
+      createdAt: "",
+      editedAt: "",
+      text: e.target.parentNode.parentNode.childNodes[3].value
   }
+
+  let dateId = e.target.parentNode.parentNode.childNodes[5].id;
+  let date = dateId.slice(0,dateId.indexOf('-'))
+  let id = getHabitId()
+  //daySquare has id of date so passing date into argument
+  let status = getDaySquareStatus(date)
+
+  console.log(status)
+
+  const habitData = {
+    date: date,
+    complete: status,
+    note: note
+  }
+
+  const options = {
+    method: 'PUT',
+    body: JSON.stringify(habitData),
+    headers: { "Content-Type": "application/json" }
+};
+
+if(note.note.trim() !== ""){
+    fetch(`${url}/${id}`, options)
+              .catch(console.warn)
+
+    console.log(id, note, date)
+
+    closeModal()
+}
 }
 
 function deleteEvent() {
@@ -241,7 +265,7 @@ function initButtons() {
 
 dateInput.value = new Date().toLocaleDateString()
 
-console.log(dateInput.value)
+// console.log(dateInput.value)
 
 function padTo2Digits(num)  {
   return num.toString().padStart(2, '0')
@@ -264,7 +288,7 @@ load();
 async function tickOff(e){
   e.preventDefault()
 
-  console.log(e)
+  // console.log(e)
   const targetDate = e.target.parentNode[0].value
   const status = e.target.parentNode[1].value
   const habitList = document.getElementById('habit-selector')
@@ -296,7 +320,7 @@ async function tickOff(e){
     date;
   }
 
-  console.log(id)
+  // console.log(id)
   const habitData = {
     date: date,
     complete: status
@@ -321,6 +345,8 @@ async function tickOff(e){
     square.style.backgroundColor = "green"
   } else if (status == "incomplete"){
     square.style.backgroundColor = "red"
+  } else {
+    square.style.backgroundColor = " "
   }
 
 }
@@ -337,14 +363,14 @@ async function createHabit(e){
   const habitArray = []
   const habitSelectorOptions = document.getElementById('habit-selector').childNodes
   habitSelectorOptions.forEach(h => {habitArray.push(h.textContent)})
-  console.log(habitArray)
+  // console.log(habitArray)
 
   let habit = e.target.childNodes[3].value.trim()
 
   if(!habit == "" && !habitArray.includes(habit)){
 
-      console.log(habitArray.includes(habit))
-      console.log(e)
+      // console.log(habitArray.includes(habit))
+      // console.log(e)
     
       const habitData = {
       content: e.target.childNodes[3].value,
@@ -365,11 +391,11 @@ async function createHabit(e){
     const response = await fetch(url, options)
 
     let newData = await getUserHabits(email)
-    console.log(newData)
+    // console.log(newData)
     
     //write id to habit on frontend
     const newHabit = newData.filter( h => h.content == habitData.content)
-    console.log(newHabit[0]._id)
+    // console.log(newHabit[0]._id)
 
     
     // console.log(habitSelector)
@@ -391,7 +417,7 @@ async function getUserHabits(email){
 }
 
 async function renderPost(){
-  console.log(messageBox.id)
+  // console.log(messageBox.id)
   let date = messageBox.id.slice(0,messageBox.id.indexOf('-'))
   let id = getHabitId()
 
@@ -403,18 +429,19 @@ async function renderPost(){
   //check for whether date and corresponding post is present
   let dates = data.dates
   dates = dates.filter(d => d.date == date )
-  console.log(dates)
+  // console.log(dates.length != 0 && dates[0].date == date)
   
   if(dates.length != 0 && dates[0].date == date){
     //render post
-    console.log("running")
+    // console.log(dates[0].note)
     let text = dates[0].note.text
+    console.log(text)
     //give deleteBtn a function
 
     eventTitleInput.style.display = "none"
     deleteBtn.style.display = "block"
     p.textContent = text
-    console.log(buttonDiv)
+    // console.log(buttonDiv)
     messageBox.appendChild(p)
 
   } else {
@@ -423,6 +450,23 @@ async function renderPost(){
     deleteBtn.style.display = "none"
   }
 
-  console.log(data)
+  // console.log(data)
   
+}
+
+
+function getDaySquareStatus(id){
+
+  const daySquare = document.getElementById(id)
+  let status = ""
+  if(daySquare.style.backgroundColor == "red"){
+    status = "incomplete"
+  } else if(daySquare.style.backgroundColor == "green"){
+    status = "complete"
+  } else {
+    status = "unchecked"
+  }
+
+  console.log(status)
+  return status
 }

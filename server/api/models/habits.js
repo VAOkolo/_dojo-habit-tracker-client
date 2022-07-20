@@ -75,7 +75,7 @@ class Habit {
     }
 
     //date object doesn't require unique id (at least for now) as the date itself can function as it
-    update(date, status) {
+    update(date, status, note) {
         return new Promise (async (resolve, reject) => {
             try {
                 const db = await init();
@@ -83,11 +83,12 @@ class Habit {
                     for(let i=0;i<this.dates.length; i++){
                         if(this.dates[i].date == date){
                             this.dates[i].complete = status
+                            this.dates[i].note = note
                             break;
                         } 
                     }
                 } else {
-                    this.dates.push({date: date, complete: status})
+                    this.dates.push({date: date, complete: status, note: note})
                 }
 
                 await db.collection('habits').updateOne({_id: ObjectId(this.id)},

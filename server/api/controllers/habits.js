@@ -61,10 +61,11 @@ router.put('/:id', async (req, res) => {
     try {
         const dates = req.body.date
         const status = req.body.complete
+        const note = req.body.note
         console.log(dates,status)
         const habit = await Habit.findByHabit(req.params.id)
         // console.log(habit)
-        await habit.update(dates, status)
+        await habit.update(dates, status, note)
         res.status(204).json('Habit updated')
     } catch(err){
         res.status(500).json({err})
