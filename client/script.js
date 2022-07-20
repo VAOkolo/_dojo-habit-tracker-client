@@ -111,7 +111,10 @@ async function load() {
   //write habits to habit drop down - 
   let habitSelector = document.getElementById('habit-selector')
   let habitData = await getUserHabits(email)
-  //loop through habits and add to drop down
+  
+  //reset on load
+  habitSelector.innerHTML = ""
+  //conditional so that on load you push items to new array of new habits
   for(i = 0; i < habitData.length; i++){
     let options = document.createElement('option')
     options.textContent = habitData[i].content
@@ -216,7 +219,7 @@ async function saveEvent(e) {
   //daySquare has id of date so passing date into argument
   let status = getDaySquareStatus(date)
 
-  console.log(status)
+  // console.log(status)
 
   const habitData = {
     date: date,
@@ -234,7 +237,7 @@ if(note.text.trim() !== ""){
     fetch(`${url}/${id}`, options)
               .catch(console.warn)
 
-    console.log(id, note, date)
+    // console.log(id, note, date)
 
     closeModal()
 }
@@ -320,10 +323,13 @@ async function tickOff(e){
     date;
   }
 
-  // console.log(id)
+  //get note
+  let note = await getNote(id,date)
+  
   const habitData = {
     date: date,
-    complete: status
+    complete: status,
+    note: note
   }
 
   const options = {
@@ -429,7 +435,7 @@ async function renderPost(){
   //check for whether date and corresponding post is present
   let dates = data.dates
   dates = dates.filter(d => d.date == date )
-  // console.log(dates.length != 0 && dates[0].date == date)
+  console.log(dates)
   
   if(dates.length != 0 && dates[0].date == date){
     //render post
@@ -469,4 +475,20 @@ function getDaySquareStatus(id){
 
   console.log(status)
   return status
+}
+
+async function getNote(id, date){
+
+  const response = await fetch(`${url}/id/${id}`)
+  const data = await response.json()
+  let dates = data.dates
+  let note = ""
+
+  dates = dates.filter(d => d.date == date )
+  note = dates[0].note.text
+
+  // console.log(note)
+  return { createdAt: "",
+            updatedAt: "",
+            text: note }
 }
