@@ -401,13 +401,14 @@ async function renderPost(){
 
   let text = ""
   //check for whether date and corresponding post is present
-  const dates = data.dates
-  console.log(dates.some(d => d.date == date))
-  if(dates.some(d => d.date == date)){
+  let dates = data.dates
+  dates = dates.filter(d => d.date == date )
+  console.log(dates)
+  
+  if(dates.length != 0 && dates[0].date == date){
     //render post
     console.log("running")
-    let filteredDate = dates.filter(d => d.date == date )
-    let text = filteredDate[0].note.text
+    let text = dates[0].note.text
     //give deleteBtn a function
 
     eventTitleInput.style.display = "none"
