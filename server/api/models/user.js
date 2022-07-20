@@ -34,6 +34,7 @@ class User {
                     // let userData = await db.collection('users').insertOne({username,  email,password});
                     let userData = await db.collection('users').insertOne({username,  email,password});
                     resolve (userData);
+                    console.log('User created')
                 } catch (err) {
                     reject('Error creating user');
                 }

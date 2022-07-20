@@ -6,7 +6,7 @@ const Habit = require('../models/habits')
 const { verifyToken } = require('../middleware/auth');
 
 //getting all user habit data
-router.get('/', async (req, res) => {
+router.get('/',  async (req, res) => {
     try {
         const habits = await Habit.all;
         res.status(200).json(habits)
@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
 })
 
 //getting all users (users) habit data
-router.get('/:email', async (req, res) => {
+router.get('/:email' , async (req, res) => {
     try {
         const habits = await Habit.findByEmail(req.params.email)
         res.json(habits)
