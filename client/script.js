@@ -230,7 +230,7 @@ async function saveEvent(e) {
     headers: { "Content-Type": "application/json" }
 };
 
-if(note.note.trim() !== ""){
+if(note.text.trim() !== ""){
     fetch(`${url}/${id}`, options)
               .catch(console.warn)
 
