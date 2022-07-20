@@ -21,6 +21,8 @@ let messageBox = document.querySelector('.note-input')
 let buttonDiv = document.querySelector('#button-div')
 let p = document.querySelector('#note-p')
 let deleteBtn = document.querySelector('#delete-button')
+let editBtn = document.querySelector('#edit-button')
+let saveBtn = document.querySelector('#saveButton')
 
 //event listeners
 //add status to specific day
@@ -29,6 +31,7 @@ checkBtn.addEventListener('click', tickOff)
 habitForm.addEventListener('submit', createHabit)
 //load status on drop down change
 habitList.addEventListener('change', loadStatus)
+editBtn.addEventListener('click', editNote)
 
 
 function openModal(date) {
@@ -210,10 +213,11 @@ async function saveEvent(e) {
   let note = {
       createdAt: "",
       editedAt: "",
-      text: e.target.parentNode.parentNode.childNodes[3].value
+      text: e.target.parentNode.parentNode.childNodes[5].value
   }
 
-  let dateId = e.target.parentNode.parentNode.childNodes[5].id;
+  let dateId = e.target.parentNode.parentNode.childNodes[7].id;
+  console.log(dateId)
   let date = dateId.slice(0,dateId.indexOf('-'))
   let id = getHabitId()
   //daySquare has id of date so passing date into argument
@@ -442,15 +446,20 @@ async function renderPost(){
       //give deleteBtn a function
 
       eventTitleInput.style.display = "none"
+      saveBtn.style.display = "none"
+      editBtn.style.display = "block"
       deleteBtn.style.display = "block"
       p.textContent = text
-      // console.log(buttonDiv)
+      console.log(p)
       messageBox.appendChild(p)
+      messageBox.style.display = "block"
 
   } else {
     eventTitleInput.style.display = "block"
     p.textContent = ""
+    editBtn.style.display = "none"
     deleteBtn.style.display = "none"
+    saveBtn.style.display = "block"
   }
 
   // console.log(data)
@@ -488,4 +497,19 @@ async function getNote(id, date){
   return { createdAt: "",
             updatedAt: "",
             text: note }
+}
+
+function editNote(e){
+  console.log(e)
+
+  editBtn.style.display = "none"
+  saveBtn.style.display = "block"
+
+  let note = e.target.parentNode.parentNode.childNodes[7]
+  let noteText = e.target.parentNode.parentNode.childNodes[7].textContent
+  console.log(note, noteText)
+  note.style.display = "none"
+
+  eventTitleInput.style.display = "block"
+  eventTitleInput.textContent = noteText
 }
