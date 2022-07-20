@@ -118,17 +118,9 @@ async function load() {
   let habitData = await getUserHabits(email)
   
   //reset on load
-  habitSelector.innerHTML = ""
+  // habitSelector.innerHTML = ""
   //conditional so that on load you push items to new array of new habits
-  for(i = 0; i < habitData.length; i++){
-    let options = document.createElement('option')
-    options.textContent = habitData[i].content
-    options.value = habitData[i].content
-    options.setAttribute('id', habitData[i]._id)
-    habitSelector.appendChild(options)
-  }
-
-  loadStatus()
+  loadHabits(habitData, habitSelector)
 }
 
 function getHabitId(){
@@ -146,6 +138,7 @@ function getHabitId(){
     return id;
 }
 
+//runs when habit list is changed
 async function loadStatus(){
 
     //get id from habit selector list and pass to fetch url
@@ -605,4 +598,21 @@ function loadNoteStatus(calendar, data_string){
       }
     }
   }
+}
+
+
+function loadHabits(habitData, habitSelector){
+
+  console.log(habitSelector.value)
+  if(habitSelector.value == ""){
+    for(i = 0; i < habitData.length; i++){
+      let options = document.createElement('option')
+      options.textContent = habitData[i].content
+      options.value = habitData[i].content
+      options.setAttribute('id', habitData[i]._id)
+      habitSelector.appendChild(options)
+    }
+  }
+
+  loadStatus()
 }
