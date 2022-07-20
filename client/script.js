@@ -508,6 +508,7 @@ function editNote(e){
   console.log(e)
 
   editBtn.style.display = "none"
+  deleteBtn.style.display = "none"
   saveBtn.style.display = "block"
 
   let note = e.target.parentNode.parentNode.childNodes[7]
