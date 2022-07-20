@@ -23,8 +23,7 @@ let p = document.querySelector('#note-p')
 let deleteBtn = document.querySelector('#delete-button')
 let editBtn = document.querySelector('#edit-button')
 let saveBtn = document.querySelector('#saveButton')
-let noteEmoji = document.createElement('p')
-noteEmoji.textContent = "📝 "
+
 
 //event listeners
 //add status to specific day
@@ -584,8 +583,13 @@ function loadNoteStatus(calendar, data_string){
   for( i = 0; i < calendar.length; i++){
     let calendarId = calendar[i].id
     for(j = 0; j < data_string.length; j++) {
-      if(calendarId == data_string[j].date){
+      if(calendarId == data_string[j].date && data_string[j].note.text != ""){
+        console.log(calendarId, data_string[j].date)
         let daySquare = document.getElementById(calendarId)
+        let noteEmoji = document.createElement('p')
+        noteEmoji.textContent = "📝 "
+
+        console.log(daySquare)
         daySquare.appendChild(noteEmoji)
         break;
       }
