@@ -522,12 +522,18 @@ async function getNote(id, date){
   let note = ""
 
   dates = dates.filter(d => d.date == date )
-  note = dates[0].note.text
+  console.log(dates)
 
-  // console.log(note)
-  return { createdAt: "",
-            updatedAt: "",
-            text: note }
+  if(dates.length > 0){
+    note = dates[0].note.text
+        return { createdAt: "",
+                  updatedAt: "",
+                  text: note }
+  } else {
+    return { createdAt: "",
+                  updatedAt: "",
+                  text: "" }
+  }
 }
 
 function editNote(e){
