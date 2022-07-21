@@ -10,37 +10,27 @@ db.login.drop()
 //     { userid: 112, habitid: "drinking water", date: `18 july 2022.`, status: "undone"},
 //     { userid: 111, habitid: "running", date: `19 july 2022.`, status: "complete"}])
 
+
 db.habits.insertMany([
     {content: "running", email: "vincent@gmail.com", dates: [{
         date: "7/15/2022",
-        complete: "incomplete"
+        complete: "incomplete",
+        note: {
+            createdAt: "",
+            editedAt: "",
+            text: ""
+        }
     },{
         date: "7/16/2022",
-        complete: "complete"
+        complete: "complete",
+        note: {
+            createdAt: "",
+            editedAt: "",
+            text: ""
+        }
     },{
-        date: "8/15/2021",
-        complete: "incomplete"
-    },{
-        date: "8/16/2021",
-        complete: "complete"
-    },
-    {
-        date: "9/15/2022",
-        complete: "complete"
-    },{
-        date: "7/16/2020",
-        complete: "complete"
-    },
-    {
-        date: "8/15/2020",
-        complete: "incomplete"
-    },{
-        date: "6/28/2022",
-        complete: "complete"
-    },
-    {
-        date: "6/29/2022",
-        complete: "incomplete",
+        date: "7/17/2022",
+        complete: "complete",
         note: {
             createdAt: "",
             editedAt: "",
@@ -57,10 +47,20 @@ db.habits.insertMany([
             }
         },{
             date: "7/16/2022",
-            complete: "complete"
+            complete: "complete",
+            note: {
+                createdAt: "",
+                editedAt: "",
+                text: ""
+            }
         },{
             date: "7/17/2022",
-            complete: "complete"
+            complete: "complete",
+            note: {
+                createdAt: "",
+                editedAt: "",
+                text: ""
+            }
         }]}])
 
 

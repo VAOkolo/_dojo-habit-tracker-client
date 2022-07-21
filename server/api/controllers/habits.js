@@ -3,10 +3,8 @@ const router = express.Router()
 
 const Habit = require('../models/habits')
 
-const { verifyToken } = require('../middleware/auth');
-
 //getting all user habit data
-router.get('/',  async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const habits = await Habit.all;
         res.status(200).json(habits)
@@ -16,7 +14,7 @@ router.get('/',  async (req, res) => {
 })
 
 //getting all users (users) habit data
-router.get('/:email' , async (req, res) => {
+router.get('/:email', async (req, res) => {
     try {
         const habits = await Habit.findByEmail(req.params.email)
         res.json(habits)
@@ -63,10 +61,11 @@ router.put('/:id', async (req, res) => {
     try {
         const dates = req.body.date
         const status = req.body.complete
+        const note = req.body.note
         console.log(dates,status)
         const habit = await Habit.findByHabit(req.params.id)
         // console.log(habit)
-        await habit.update(dates, status)
+        await habit.update(dates, status, note)
         res.status(204).json('Habit updated')
     } catch(err){
         res.status(500).json({err})
