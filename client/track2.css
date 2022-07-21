@@ -1,6 +1,7 @@
 .menuItems {
     display: flex;
-    justify-content: center;
+    justify-content: right;
+    padding-right: 50px;
 }
 
 .menuItems > li {
@@ -15,5 +16,38 @@
 
 .mainnavbar {
     height: 30px;
-    background-color: #87BDE6;
+    /* background-color: #FD335B; */
+    /* background-color: #FD335D; */
+    /* background-image: linear-gradient(15deg, #FD335D 0%, #fdd3dc 100%); */
+    background: url(./assets/background.jpg);
+    background-size: cover;
 }
+
+li > a {
+    text-decoration: none;
+    font-family: 'Libre Franklin', sans-serif;
+    font-weight: bold;
+    /* color: #f78102; */
+    color: #fc4a6d;
+}
+
+li > a:hover {
+    animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+    transform: translate3d(0, 0, 0);
+    perspective: 1000px;
+  }
+
+  @keyframes shake {
+    10%, 90% {
+      transform: translate3d(-1px, 0, 0);
+    }
+    20%, 80% {
+      transform: translate3d(2px, 0, 0);
+    }
+    30%, 50%, 70% {
+      transform: translate3d(-4px, 0, 0);
+    }
+    40%, 60% {
+      transform: translate3d(4px, 0, 0);
+    }
+  }
