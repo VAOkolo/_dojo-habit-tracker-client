@@ -37,6 +37,7 @@ async function renderNotes(e){
     const response = await fetch(`${url}/id/${id}`)
     const data = await response.json()
     const dates = data.dates
+    console.log(data)
 
     //convert date to date object
     dates.forEach(d =>{
@@ -58,10 +59,10 @@ async function renderNotes(e){
             let notePost = document.createElement('p')
 
             
-            noteDate = date
-            notePost = note
-            noteDiv.append(noteDate)
-            noteDiv.append(notePost)
+            noteDate.textContent = date
+            notePost.textContent = note
+            noteDiv.appendChild(noteDate)
+            noteDiv.appendChild(notePost)
             noteContainer.appendChild(noteDiv)
         }
     })

@@ -440,7 +440,7 @@ async function createHabit(e){
       deleteBtn.setAttribute('id', `${newHabit[0]._id}-dh`)
       li.setAttribute('id', `${newHabit[0]._id}-li`)
 
-      li.appendChild(editBtn)
+      // li.appendChild(editBtn)
       li.appendChild(deleteBtn)
       habitDeleteList.appendChild(li)
       console.log(habitDeleteList)
@@ -655,7 +655,7 @@ function loadHabits(habitData, habitSelector){
       deleteBtn.setAttribute('id', `${habitData[i]._id}-dh`)
       li.setAttribute('id', `${habitData[i]._id}-li`)
 
-      li.appendChild(editBtn)
+      // li.appendChild(editBtn)
       li.appendChild(deleteBtn)
       habitDeleteList.appendChild(li)
     }
