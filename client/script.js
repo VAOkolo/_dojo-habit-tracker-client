@@ -1,5 +1,5 @@
 // let email = "vincent@gmail.com"
-let email = localStorage.getItem('email')
+let email = localStorage.getItem('userEmail')
 console.log(email)
 let url = 'http://localhost:3001/habits'
 
