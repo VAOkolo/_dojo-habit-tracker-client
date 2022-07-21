@@ -2,6 +2,7 @@
     display: flex;
     justify-content: right;
     padding-right: 50px;
+    margin: 0px;
 }
 
 .menuItems > li {
@@ -15,6 +16,7 @@
 }
 
 .mainnavbar {
+    margin-top: auto;
     height: 30px;
     /* background-color: #FD335B; */
     /* background-color: #FD335D; */
