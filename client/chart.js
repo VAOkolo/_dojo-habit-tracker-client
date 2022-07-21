@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () =>{
     const chartForm = document.querySelector('.chart-form');
 
     chartForm.addEventListener('submit', async (e) => {
-        let email = "vincent@gmail.com";
+        let email = localStorage.getItem('userEmail')
         let url = 'http://localhost:3001/habits'
         e.preventDefault();
         console.log(e.target[0].value)
@@ -186,7 +186,7 @@ async function getTheInfo(email, findId, url, timeperiod){
 }
 
 async function getInfo(){
-    let email = "vincent@gmail.com";
+    let email = localStorage.getItem('userEmail');
     let id = "62d82326961275760bbd2858";
     let url = 'http://localhost:3001/habits'
     const res = await fetch( `${url}/id/${id}`);
@@ -201,7 +201,7 @@ async function load(){
     protected = await protectedRoute();
     let habitSelector = document.getElementById('habit-select')
     console.log(habitSelector)
-    let email = "vincent@gmail.com";
+    let email = localStorage.getItem('userEmail');
     let id = "62d82326961275760bbd2858";
     let url = 'http://localhost:3001/habits'
     const search_data = await getUserHabits(url, email);
@@ -230,7 +230,7 @@ async function load(){
     // console.log(habit_id)
     // console.log(habit_dates)
 
-    completed_list = await getInfo()
+    completed_list = await getTheInfo()
     console.log(completed_list)
     console.log("FINISH")
     let completedCount = 0;
