@@ -131,17 +131,34 @@ document.addEventListener("DOMContentLoaded", () =>{
             const data = await r.json()
             if (data.err){ throw Error(data.err) }
             console.log("success")
+            const options = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: email_input,
+                    password: password_input
+                })
+            }
+            const signin = await fetch(`http://localhost:3001/auth/login`, options)
+            const data_login = await signin.json()
+            console.log(data_login)
+            login(data_login.token);
+            setFormMessage(createAccountForm, 'error', 'User created', 'green')
+            setTimeout(()=>{
+                location.assign('track.html')
+            }, 3000);
+
         } catch (err) {
                 console.warn(err);
     }
       });
 
     document.querySelectorAll('.form__input').forEach(inputElement =>{
-        inputElement.addEventListener("blur", (e) =>{
-            if (e.target.id === "signupUsername" && e.target.value.length > 0 && e.target.value.length < 10){
-                setInputError(inputElement, "Username must be at least 10 characters in length");
-            }
-        })
+        // inputElement.addEventListener("blur", (e) =>{
+        //     if (e.target.id === "signupUsername" && e.target.value.length > 0 && e.target.value.length < 10){
+        //         setInputError(inputElement, "Username must be at least 10 characters in length");
+        //     }
+        // })
 
         inputElement.addEventListener("input", (e) =>{
             clearInputError(inputElement);
