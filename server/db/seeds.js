@@ -1,8 +1,8 @@
 const db = connect("mongodb://localhost:27017/habittracker")
 
-db.userInfo.drop()
+db.users.drop()
 db.habits.drop()
-db.login.drop()
+// db.login.drop()
 
 
 // db.userInfo.insertMany([
