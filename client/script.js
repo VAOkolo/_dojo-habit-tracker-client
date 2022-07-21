@@ -1,4 +1,5 @@
-
+let email = "dojo@getgmail.com"
+let url = 'http://localhost:3001/habits'
 
 let nav = 0; //to keep track of the month we are on
 let clicked = null; //whichever day we have clicked on 
@@ -11,6 +12,8 @@ const backDrop = document.getElementById('modalBackDrop');
 const eventTitleInput = document.getElementById('eventTitleInput');
 const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 const dateInput = document.getElementById('date')
+
+
 
 function openModal(date) {
   clicked = date;
@@ -28,6 +31,19 @@ function openModal(date) {
 }
 
 async function load() {
+
+
+  const div_footer = document.querySelector('.footer')
+  console.log(div_footer)
+  username_local = localStorage.getItem("username")
+  console.log(username_local)
+  const footer = document.createElement("p")
+  footer.textContent = "Welcome, " +  username_local
+  footer.setAttribute("id", "username_local")
+  div_footer.append(footer)
+  console.log("FOOTER ADDED")
+
+  
 
   //fetch data
   // const res = await fetch( "http://localhost:3001/habits/id/62d6ae5eeb6058acdb4933d2");
@@ -104,15 +120,35 @@ async function load() {
   loadStatus()
 }
 
-async function loadStatus(){
+function getHabitId(){
+  const habitList = document.getElementById('habit-selector')
+    const habit = document.getElementById('habit-selector').value
+    //get id using habit name
+    let id = "";
+    //get id of first habit in habitList
+    for(i=0; i < habitList.childNodes.length; i++){
+      if(habitList.childNodes[i].textContent == habit){
+        id = habitList.childNodes[i].id
+      }
+    }
 
-    const res = await fetch( "http://localhost:3001/habits/id/62d6ae5eeb6058acdb4933d2");
-    const searchData = await res.json();
-    // console.log(searchData)
-    const habitDates = await searchData.dates;
+    return id;
+}
+
+async function loadStatus(){
+  try{
+    id = '62d82326961275760bbd2858';
+    protected = await protectedRoute(url);
+    // if(!protected){
+    //   throw new Error('Not authorised') 
+    // }
+    searchData = await getHabit(url, id);
+    // const habitDates = await searchData.dates;
     // console.log(habitDates)
-    const data_string = await habitDates.map(search => search)
+    // // console.log(habitDates)
+    // const data_string = await habitDates.map(search => search)
     // const data_string =  JSON.stringify(data)
+    data_string= '1'
     console.log(data_string)
 
     const calendar = document.querySelectorAll('.day')
@@ -137,6 +173,12 @@ async function loadStatus(){
         }
       }
     }
+  }catch(err){
+    console.log(err);
+    console.log("SIUUU")
+    console.log("ERROR")
+    location.href = 'index.html'
+  }
 }
 
 function closeModal() {
@@ -151,14 +193,17 @@ function closeModal() {
 
 function saveEvent() {
   if (eventTitleInput.value) {
-    eventTitleInput.classList.remove('error');
+    // eventTitleInput.classList.remove('error');
 
-    events.push({
-      date: clicked,
-      title: eventTitleInput.value,
-    });
+    // events.push({
+    //   date: clicked,
+    //   title: eventTitleInput.value,
+    // });
 
-    localStorage.setItem('events', JSON.stringify(events));
+    // localStorage.setItem('events', JSON.stringify(events));
+    const example = document.createElement('p')
+    example.textContent = "lLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+    newEventModal.appendChild(example)
     closeModal();
   } else {
     eventTitleInput.classList.add('error');

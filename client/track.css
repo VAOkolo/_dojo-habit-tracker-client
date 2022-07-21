@@ -5,7 +5,8 @@ body {
     background-color: #FFFCFF;
   }
 
-  #container{
+
+  #container-track{
     position: relative;
     width: 400px;
     max-width: 800px;
@@ -14,6 +15,21 @@ body {
     box-shadow: 0 0 40px rgba(0,0,0,0.2);
     border-radius: var(--border-radius);
     background: #ffffff;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  font-size: 80px;
+  height:7.5rem;
+  width: 100%;
+  background-color: #7f6315;
+  font-family: sans-serif;
+  color: white;
+  text-align: center;
+  box-shadow: 0 0 40px rgba(0,0,0,0.2);
+  border-radius: var(--border-radius);
 }
 
 

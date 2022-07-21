@@ -59,7 +59,7 @@ body {
     color: var(--color-success)
 }
 
-.form__message--success {
+.form__message--error {
     color: var(--color-error)
 }
 
