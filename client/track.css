@@ -39,7 +39,10 @@ button {
   justify-content: space-between;
 }
 #header button {
-  background-color:#e6b225;
+  /* background-color:#e6b225; */
+  background-color: #8a9acf;
+  color: white;
+  /* font-weight: bold; */
 }
 #container {
   width: 770px;
@@ -47,7 +50,10 @@ button {
 #weekdays {
   width: 100%;
   display: flex;
-  color: #4d581e;
+  font-family: 'Libre Franklin', sans-serif;
+  font-weight: bold;
+  /* color: #4d581e; */
+  color: #8a9acf
 }
 #weekdays div {
   width: 100px;
@@ -59,6 +65,10 @@ button {
   display: flex;
   flex-wrap: wrap;
 }
+#monthDisplay{
+  color: #8a9acf
+}
+
 .day {
   width: 100px;
   padding: 10px;
@@ -69,12 +79,16 @@ button {
   background-color: white;
   margin: 5px;
   box-shadow: 0px 0px 3px #CBD4C2;
+  border-style: solid;
+  border-color: #8a9acf;
+  border-width: 1px;
+  /* box-shadow: 0 0 40px rgba(0,0,0,0.4); */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 .day:hover {
-  background-color: #e8faed;
+  background-color: #899de0;
 }
 
 .day + #currentDay {
@@ -149,11 +163,13 @@ ul > li {
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 3px;
+  align-items: center;
 }
 
 li > p{
   flex: 1 1 0;
   flex-wrap: wrap;
+  /* align-items: center; */
   width: 0;
   font-size: 15px;
   font-family: 'Libre Franklin', sans-serif;
@@ -162,8 +178,10 @@ li > p{
 
 li > button{
   flex: 1 1 0;
-  width: 0;
-  border-radius: 20px;
+  /* align-items: center; */
+  width: 100px;
+  
+  /* border-radius: 20px; */
   /* height: 50px;
   width: 30px; */
 }
@@ -189,6 +207,8 @@ li > button{
 .delete-button-hl {
   background-color: #f00e0e; 
   border: 2px solid #f00e0e;
+  height: 30px;
+  width: 100px;
   font-size: 15px;
   font-weight: bold;
   font-family: 'Libre Franklin', sans-serif;
@@ -232,9 +252,10 @@ habit-form{
   font-weight: bold;
 }
 
-#check-button, #backButton, #editButton{
+#check-button, #backButton, #nextButton, #editButton{
     /* display: inline-block;
     vertical-align: middle; */
+    /* background-color: rgb(89, 49, 89); */
     -webkit-transform: perspective(1px) translateZ(0);
     transform: perspective(1px) translateZ(0);
     /* box-shadow: 0 0 1px rgba(0, 0, 0, 0); */
@@ -242,9 +263,14 @@ habit-form{
     transition-duration: 0.3s;
     -webkit-transition-property: transform;
     transition-property: transform;
+    /* background-color: rgb(89, 49, 89); */
   }
-  #check-button:active, #backButton:active, #editButton:active {
+  #check-button:active, #backButton:active, #nextButton #editButton:active {
     -webkit-transform: scale(0.8);
     transform: scale(0.8);
   }
 
+  .day > p {
+    font-size: 25px;
+    text-align: center;
+  }
