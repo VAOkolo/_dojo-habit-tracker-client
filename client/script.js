@@ -28,6 +28,7 @@ let saveBtn = document.querySelector('#saveButton')
 let habitDeleteList = document.querySelector('#habit-delete-list')
 
 
+
 //event listeners
 //add status to specific day
 checkBtn.addEventListener('click', tickOff)
@@ -76,10 +77,12 @@ async function load() {
   console.log(div_footer)
   username_local = localStorage.getItem("username")
   console.log(username_local)
-  const footer = document.createElement("p")
-  footer.textContent = "Welcome, " +  username_local
-  footer.setAttribute("id", "username_local")
-  div_footer.append(footer)
+  // const footer = document.createElement("p")
+  let usernamep = document.getElementById('username_local')
+
+  usernamep.textContent = "Welcome, " +  username_local
+  usernamep.setAttribute("id", "username_local")
+  // div_footer.append(footer)
   console.log("FOOTER ADDED")
 
   const dt = new Date();
@@ -452,16 +455,20 @@ async function createHabit(e){
 
     //write new habit to page before reload
     let li = document.createElement('li')
+    let p = document.createElement('p')
       let editBtn = document.createElement('button')
       let deleteBtn = document.createElement('button')
-      li.textContent = newHabit[0].content
+      p.textContent = newHabit[0].content
       editBtn.textContent = "Edit"
       deleteBtn.textContent = "Delete"
       editBtn.setAttribute('id', `${newHabit[0]._id}-eh`)
       deleteBtn.setAttribute('id', `${newHabit[0]._id}-dh`)
+      deleteBtn.setAttribute('class', 'delete-button-hl')
       li.setAttribute('id', `${newHabit[0]._id}-li`)
+      p.setAttribute('id', `${newHabit[0]._id}`)
 
       // li.appendChild(editBtn)
+      li.appendChild(p)
       li.appendChild(deleteBtn)
       habitDeleteList.appendChild(li)
       console.log(habitDeleteList)
@@ -667,16 +674,20 @@ function loadHabits(habitData, habitSelector){
       habitSelector.appendChild(options)
 
       let li = document.createElement('li')
+      let p = document.createElement('p')
       let editBtn = document.createElement('button')
       let deleteBtn = document.createElement('button')
-      li.textContent = habitData[i].content
+      p.textContent = habitData[i].content
       editBtn.textContent = "Edit"
       deleteBtn.textContent = "Delete"
       editBtn.setAttribute('id', `${habitData[i]._id}-eh`)
       deleteBtn.setAttribute('id', `${habitData[i]._id}-dh`)
+      deleteBtn.setAttribute('class', 'delete-button-hl')
       li.setAttribute('id', `${habitData[i]._id}-li`)
+      p.setAttribute('id', `${habitData[0]._id}`)
 
       // li.appendChild(editBtn)
+      li.appendChild(p)
       li.appendChild(deleteBtn)
       habitDeleteList.appendChild(li)
     }

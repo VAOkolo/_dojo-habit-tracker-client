@@ -1,0 +1,19 @@
+.menuItems {
+    display: flex;
+    justify-content: center;
+}
+
+.menuItems > li {
+    margin: 5px;
+    font-size: 20px;
+}
+
+.footer{
+    /* float: right; */
+    text-align: right;
+}
+
+.mainnavbar {
+    height: 30px;
+    background-color: #87BDE6;
+}

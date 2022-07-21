@@ -1,8 +1,10 @@
-body {
+section {
   display: flex;
-  margin-top: 50px;
+  margin-top: px;
   justify-content: center;
   background-color: #FFFCFF;
+  background: url(./assets/background.jpg);
+  background-size: cover;
 }
 
 #container{
@@ -143,9 +145,61 @@ button {
 }
 
 ul > li {
-  list-style-type: none
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 3px;
 }
 
-li {
-  display: flex;
+li > p{
+  flex: 1 1 0;
+  flex-wrap: wrap;
+  width: 0;
+  font-size: 15px;
+  font-weight: bold;
 }
+
+li > button{
+  flex: 1 1 0;
+  width: 0;
+  border-radius: 20px;
+  /* height: 50px;
+  width: 30px; */
+}
+
+.navbar{
+  margin-top: 2vh;
+  margin-right: .05vw;
+  margin-bottom: 1.6vh;
+  box-shadow: 0 0 40px rgba(0,0,0,0.2);
+  border-radius: 50px;
+  background: #ffffff;
+  width: 275px;
+  padding: 20px;
+}
+
+#create-habit{
+  border-radius: 8px;
+  height: 20px;
+  margin-right: 3px;
+}
+
+.delete-button-hl {
+  background-color: #f00e0e; 
+  border: 2px solid #f00e0e;
+  font-size: 15px;
+  font-weight: bold;
+  color: white;
+}
+
+.delete-button-hl:hover {
+  background-color: #b53737;
+  color: white;
+  font-weight: bold;
+}
+
+#habit-selector {
+  width: 120px;
+  height: 21px;
+}
+
