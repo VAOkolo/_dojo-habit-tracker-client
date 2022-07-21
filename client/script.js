@@ -712,3 +712,5 @@ async function deleteHabitList(id){
   }
 
 }
+
+module.exports = { getUserHabits }
