@@ -27,13 +27,10 @@ router.post('/login', async (req, res) => {
         const user = await User.findByEmail(req.body.email)
         console.log(req)
         if(!user){ throw new Error('No user with this email') }
-        const salt = await bcrypt.genSalt();
-        const hashed = await bcrypt.hash(req.body.password, salt)
-        console.log("ASHED,", hashed)
         const authed = await bcrypt.compare(req.body.password, user.password)
         console.log(authed)
         if(authed == false){
-            throw new Error('Incorrect password') 
+            throw new Error('Authed '+authed+ 'Incorrect password , entered:' + req.body.password +  '  data:'+user.password) 
         }
         console.log(authed)
         if (!!authed){
@@ -45,6 +42,7 @@ router.post('/login', async (req, res) => {
                 res.status(200).json({
                     success: true,
                     token: "Bearer " + token,
+                    message: 'Authed '+authed+ 'Incorrect password , entered:' + req.body.password +  '  data:'+user.password
                 });
             }
             jwt.sign(payload, process.env.SECRET, { expiresIn: "5m"}, sendToken);
