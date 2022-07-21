@@ -26,6 +26,7 @@ let deleteBtn = document.querySelector('#delete-button')
 let editBtn = document.querySelector('#edit-button')
 let saveBtn = document.querySelector('#saveButton')
 let habitDeleteList = document.querySelector('#habit-delete-list')
+// let logout = document.querySelector('.logout')
 
 
 
@@ -47,6 +48,11 @@ habitDeleteList.addEventListener('click', (e) => {
     deleteHabitList(id)
   }
 })
+// logout.addEventListener('click', (e) => {
+//   e.preventDefault()
+//   console.log(e)
+//   localStorage.clear()
+// })
 
 
 function openModal(date) {
@@ -334,9 +340,10 @@ load();
 async function tickOff(e){
   e.preventDefault()
 
-  // console.log(e)
-  const targetDate = e.target.parentNode[0].value
-  const status = e.target.parentNode[1].value
+  console.log(e)
+  const targetDate = e.target.parentNode[1].value
+  const status = e.target.parentNode[2].value
+  // console.log(targetDate)
   const habitList = document.getElementById('habit-selector')
   const habit = document.getElementById('habit-selector').value
 
@@ -632,6 +639,7 @@ async function deleteNote(e){
     saveBtn.style.display = "block"
     editBtn.style.display = "none"
     deleteBtn.style.display = "none"
+    closeModal()
   }
 
 }
@@ -716,12 +724,15 @@ async function deleteHabitList(id){
  
   await fetch(`${url}/${newId}`, options)
  
+  console.log(newId)
+  console.log(listId)
   let li = document.getElementById(listId)
   let dropDownHabit = document.getElementById(newId)
   li.remove()
   dropDownHabit.remove()
+  
   }
-
+  
 }
 
 module.exports = { getUserHabits }
