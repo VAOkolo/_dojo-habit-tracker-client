@@ -1,4 +1,4 @@
-const renderDom = require('./trackHelpers')
+const renderDom = require('./helpers')
 
 let dom;
 let document;

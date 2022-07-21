@@ -1,4 +1,5 @@
-let email = "vincent@gmail.com"
+// let email = "vincent@gmail.com"
+let email = localStorage.getItem('userEmail')
 let url = 'http://localhost:3001/habits'
 let habitSelector = document.getElementById('habit-selector')
 let noteForm = document.getElementById('note-form')
