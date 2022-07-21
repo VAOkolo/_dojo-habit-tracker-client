@@ -41,6 +41,7 @@ async function requestRegistration(e) {
 
 function login(token){
     const user = jwt_decode(token);
+    localStorage.clear();
     localStorage.setItem("token", token);
     localStorage.setItem("username", user.username);
     localStorage.setItem("userEmail", user.email);
