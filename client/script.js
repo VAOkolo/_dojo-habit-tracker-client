@@ -2,6 +2,7 @@
 let email = localStorage.getItem('userEmail')
 console.log(email)
 let url = 'http://localhost:3001/habits'
+Protected()
 
 let nav = 0; //to keep track of the month we are on
 let clicked = null; //whichever day we have clicked on
@@ -26,7 +27,6 @@ let deleteBtn = document.querySelector('#delete-button')
 let editBtn = document.querySelector('#edit-button')
 let saveBtn = document.querySelector('#saveButton')
 let habitDeleteList = document.querySelector('#habit-delete-list')
-
 
 //event listeners
 //add status to specific day
@@ -67,11 +67,12 @@ function openModal(date) {
   renderPost()
 }
 
+async function Protected(){
+  const protected = await protectedRoute(url);
+}
+
 async function load() {  
   //generate calendar and calendar particulars
-
-  const protected = await protectedRoute(url);
-
   const div_footer = document.querySelector('.footer')
   console.log(div_footer)
   username_local = localStorage.getItem("username")

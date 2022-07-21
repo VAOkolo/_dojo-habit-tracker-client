@@ -143,7 +143,7 @@ document.addEventListener("DOMContentLoaded", () =>{
             const data_login = await signin.json()
             console.log(data_login)
             login(data_login.token);
-            setFormMessage(createAccountForm, 'error', 'Successful', 'green')
+            setFormMessage(createAccountForm, 'error', 'User created', 'green')
             setTimeout(()=>{
                 location.assign('track.html')
             }, 3000);
