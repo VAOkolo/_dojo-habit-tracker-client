@@ -10,11 +10,8 @@ async function requestLogin(e){
                 password: password_input
             })
         }
-        console.log('1')
         const r =  fetch(`http://localhost:3001/auth/login`, options)
-        console.log('2')
         const data = await r.json()
-        console.log("DATA",data)
         if (err) { throw new Error('Login not authorised'); }
         login(data.token);
     } catch (err) {
