@@ -8,6 +8,17 @@
     <link rel="stylesheet" href="viewnotes.css">
   </head>
   <body>
+    <div>
+      <nav class="mainnavbar">
+        <ul class="menuItems">
+          <li><a href='#' data-item='Home'>Home</a></li>
+          <li><a href='./viewnotes.html' data-item='Notes'>Notes</a></li>
+          <li><a href='./chart.html' data-item='Metrics'>Metrics</a></li>
+          <li><a href='./index.html' class="logout">Logout</a></li>
+        </ul>
+      </nav>
+</div>
+<div>
     <form id="note-form">
     <label for="habits"></label>
     <select name="habits" id="habit-selector">
@@ -35,9 +46,27 @@
         </select>
     <input type="submit" value="View notes">
     </form>  
+    </div>
     <div id="note-container">
 
     </div>
+    
+    <div class="footer-basic">
+        <footer>
+            <div class="social"><a href="https://github.com/harryg15/Lap1_Community_Page_Project" target="_blank"><i
+                        class="icon ion-social-github"></i></a></div>
+                <ul class="list-inline">
+                    <li class="list-inline-item"><a href="./connekt.html" target="_blank">Connekt</a></li>
+                    <li class="list-inline-item"><a href="index.html" target="_blank">Feed</a></li>
+                    <li class="list-inline-item"><a href="post.html" target="_blank">Create Post</a></li>
+                </ul>
+                <p class="copyright">Connekt © 2022</p>
+                <p class="name">Saamiya, Thilak, Vincent</p>
+            </div>
+        </footer>
+    </div>
+
+
     <script src="./viewnotes.js"></script>
   </body>
 </html>
