@@ -13,6 +13,7 @@ body {
     font-size: 18px;
     background: url(./assets/background.jpg);
     background-size: cover;
+    padding-bottom: 166px;
 }
 
 .container-chart{
@@ -311,7 +312,7 @@ ul > li {
   }
   
   section{
-    padding-bottom: 30px;
+    padding-bottom: 166px;
     /* box-shadow: 0 0 40px rgba(0,0,0,0.8); */
   }
   
