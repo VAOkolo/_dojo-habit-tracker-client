@@ -6,6 +6,14 @@
     <title>Calendar App Vanilla JS</title>
 
     <link rel="stylesheet" href="viewnotes.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin&family=Roboto+Mono&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
   </head>
   <body>
     <div>
@@ -18,7 +26,7 @@
         </ul>
       </nav>
 </div>
-<div>
+<div class="filter-div">
     <form id="note-form">
     <label for="habits"></label>
     <select name="habits" id="habit-selector">
@@ -44,7 +52,7 @@
             <option value="11">Nov</option>
             <option value="12">Dec</option>
         </select>
-    <input type="submit" value="View notes">
+    <input type="submit" class="view-notes" value="View notes">
     </form>  
     </div>
     <div id="note-container">

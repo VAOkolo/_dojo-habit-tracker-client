@@ -143,10 +143,40 @@ li > a:hover {
   }
 
   #note-container > div{
-    flex: 50%;
+    flex: 35%;
+    margin: 10px;
+    border-style: solid;
+    border-radius: 25px;
+    border-color: rgb(144, 235, 144);
 }
 
 #note-container > div > p{
     text-align: center;
 }
 
+.view-notes{
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+  background-color: rgb(144, 235, 144);
+  color: green;
+  width: 115px;
+}
+
+.view-notes:hover {
+  background-color: green;
+  color: rgb(1, 45, 1);
+  font-weight: bold;
+}
+
+.filter-div {
+    margin: auto;
+    width: 50%;
+    padding: 25px;
+}
+
+/* .filter-div > div > div {
+    margin: 10px;
+    border-style: solid;
+    border-color: rgb(144, 235, 144);
+} */

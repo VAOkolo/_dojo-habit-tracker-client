@@ -248,6 +248,8 @@ habit-form{
   background-color: rgb(144, 235, 144);
   color: green;
   width: 115px;
+  border: 0;
+  border-radius: 30px;
 }
 
 #submit-button:hover {
