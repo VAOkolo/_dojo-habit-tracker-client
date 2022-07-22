@@ -1,6 +1,8 @@
  body{
      margin: 0px;
      /* height: 1080px; */
+     background: url(./assets/background.jpg);
+  background-size: cover;
  }
  /* }footer */
  .footer-basic {
@@ -144,14 +146,17 @@ li > a:hover {
 
   #note-container > div{
     flex: 35%;
-    margin: 10px;
+    margin: 30px;
     border-style: solid;
     border-radius: 25px;
     border-color: rgb(144, 235, 144);
+    background-color: rgb(202, 252, 202);
 }
 
 #note-container > div > p{
     text-align: center;
+    font-family: 'Libre Franklin', sans-serif;
+    font-weight: bold;
 }
 
 .view-notes{
@@ -161,6 +166,9 @@ li > a:hover {
   background-color: rgb(144, 235, 144);
   color: green;
   width: 115px;
+  border: none;
+  border-radius: 25px;
+  height: 25px;
 }
 
 .view-notes:hover {
@@ -171,8 +179,14 @@ li > a:hover {
 
 .filter-div {
     margin: auto;
-    width: 50%;
+    width: 25%;
     padding: 25px;
+    border-style: solid;
+    border-radius: 25px;
+    border-color: rgb(144, 235, 144);
+    /* background-color: rgb(202, 252, 202); */
+    background-color: white;
+    text-align: center;
 }
 
 /* .filter-div > div > div {
