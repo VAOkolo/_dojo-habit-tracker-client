@@ -1,6 +1,13 @@
 document.addEventListener("DOMContentLoaded", () =>{
     const chartForm = document.querySelector('.chart-form');
 
+    username_local = localStorage.getItem("username")
+    console.log(username_local)
+    let usernamep = document.getElementById('username_local')
+
+  usernamep.textContent = "Welcome, " +  username_local
+  usernamep.setAttribute("id", "username_local")
+
     chartForm.addEventListener('submit', async (e) => {
         let email = localStorage.getItem('userEmail')
         let url = 'http://localhost:3001/habits'
@@ -282,19 +289,9 @@ async function load(){
     //             config
     //         );
 
-    const div_footer = document.querySelector('.footer')
-    console.log(div_footer)
-    username_local = localStorage.getItem("username")
-    console.log(username_local)
-    const footer = document.createElement("p")
-    footer.textContent = "Welcome, " +  username_local
-    footer.setAttribute("id", "username_local")
-    div_footer.append(footer)
-    console.log("FOOTER ADDED")
 
 
     
 }
 
 load()
-

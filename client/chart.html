@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width>, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="./chart.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script defer src="./auth.js"></script>
     <script defer src="./requests.js"></script>
@@ -14,27 +18,21 @@
     <title>Charts</title>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar10">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="navbar-collapse collapse" id="navbar10">
-            <ul class="navbar-nav nav-fill w-100">
-                <li class="nav-item">
-                    <a class="nav-link" href="track.html">Track</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="chart.html">Chart</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="index.html">Login</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<div>
+        <nav class="mainnavbar">
+          <ul class="menuItems">
+            <li><a href='./track.html' data-item='Home'>Home</a></li>
+            <li><a href='./viewnotes.html' data-item='Notes'>Notes</a></li>
+            <li><a href='./chart.html' data-item='Metrics'>Metrics</a></li>
+            <li><a href='./index.html' class="logout">Logout</a></li>
+          </ul>
+        </nav>
+</div>
+<section>
     <div class = "container-chart">
+        <div class="footer">
+            <p id="username_local"></p>
+            </div>
     <form class="chart-form">
         <label for="habit">
             <select name="habit-select" id="habit-select">
@@ -53,12 +51,23 @@
         </label>
         <button class="button" type="submit">Continue</button>
     </form>
-        <div style="width: 600px; height: 800px;">
+        <div style="width: 500px; height: 500px;">
             <canvas id="myChart"></canvas>
         </div>
     </div>
-    <div class="footer">
-      
-    </div>
+</section>
+<div class="footer-basic">
+    <footer>
+        <div class="social"><a href="" target="_blank"><i
+                    class="icon ion-social-github"></i></a></div>
+        <ul class="list-inline">
+            <li class="list-inline-item"><a href="" target="_blank">Dojo</a></li>
+            <li class="list-inline-item"><a href="./chart.html" target="_blank">Metrics</a></li>
+            <li class="list-inline-item"><a href="viewnotes.html" target="_blank">Notes</a></li>
+        </ul>
+        <p class="copyright">Dojo © 2022</p>
+        <p class="name">Saamiya, Thilak, Vincent</p>
+    </footer>
+</div>
 </body>
 </html>
